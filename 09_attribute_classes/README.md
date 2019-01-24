@@ -1,3 +1,3 @@
 # Attribute bindings and dynamic classes
 
-[Back to index](../README.md/#agenda)
+[Back to index](../README.md/#topics-covered)

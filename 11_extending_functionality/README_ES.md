@@ -186,4 +186,4 @@ Para usarlo, tenemos el `pipe` en la sintaxis de doble bigote.
 
 Pues sí, así de simple. Imaginemos el potencial que se nos abre, como por ejemplo, dar formato a monedas, fechas, etc...
 
-[Volver al índice](../README.md/#agenda)
+[Volver al índice](../README_ES.md/#agenda)

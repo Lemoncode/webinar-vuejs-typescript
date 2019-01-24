@@ -6,7 +6,7 @@ Repasaremos los conceptos fundamentales y veremos algo de código para darnos un
 
 ## Agenda
 
-- [Primeros pasos con Vue](01_first_steps/README_ES_ES.md)
+- [Primeros pasos con Vue](01_first_steps/README_ES.md)
 - [Vue CLI](02_vue_cli/README_ES.md)
 - [Sintaxis y expresiones de plantillas](03_template_syntax/README_ES.md)
 - [Comunicación entre componentes](04_communication/README_ES.md)

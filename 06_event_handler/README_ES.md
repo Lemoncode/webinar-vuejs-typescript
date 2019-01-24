@@ -117,4 +117,4 @@ export default Vue.extend({
 
 ¿Sencillo verdad? Seguimos.
 
-[Volver al índice](../README.md/#agenda)
+[Volver al índice](../README_ES.md/#agenda)

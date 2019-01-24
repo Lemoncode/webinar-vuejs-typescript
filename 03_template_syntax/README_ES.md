@@ -35,4 +35,4 @@ Podemos utilizar expresiones ternarias, funciones... cualquier sintaxis de una s
   <h1>{{ header.split('').reverse().join('') }}</h1>
 ```
 
-[Volver al índice](../README.md/#agenda)
+[Volver al índice](../README_ES.md/#agenda)

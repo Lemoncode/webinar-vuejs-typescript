@@ -96,4 +96,4 @@ También tenemos la directiva **v-show**, que tiene un comportamiento similar a 
   <h3 v-show="amountTodo === 0">I'm a ghost...</h3>
 ```
 
-[Volver al índice](../README.md/#agenda)
+[Volver al índice](../README_ES.md/#agenda)

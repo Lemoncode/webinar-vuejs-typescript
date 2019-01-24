@@ -1,3 +1,3 @@
-# User event handler
+# Handling user event
 
-[Back to index](../README.md/#agenda)
+[Back to index](../README.md/#topics-covered)

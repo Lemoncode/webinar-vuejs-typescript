@@ -6,17 +6,17 @@ We will review the fundamental concepts and we will see some code to give us an 
 
 ## Topics covered
 
-- [First steps with Vue](01_first_steps/README_ES_ES.md)
-- [Vue CLI](02_vue_cli/README_ES.md)
-- [Template syntax and expressions](03_template_syntax/README_ES.md)
-- [Communication between components](04_communication/README_ES.md)
-- [Loops](05_loops/README_ES.md)
-- [Handling user events](06_event_handler/README_ES.md)
-- [Vue methods](07_methods/README_ES.md)
-- [Conditional rendering](08_conditional_rendering/README_ES.md)
-- [Attribute and Class bindings](09_attribute_classes/README_ES.md)
-- [Computed properties](10_computed_properties/README_ES.md)
-- [Extending functionality](11_extending_functionality/README_ES.md)
+- [First steps with Vue](01_first_steps/README.md)
+- [Vue CLI](02_vue_cli/README.md)
+- [Template syntax and expressions](03_template_syntax/README.md)
+- [Communication between components](04_communication/README.md)
+- [Loops](05_loops/README.md)
+- [Handling user events](06_event_handler/README.md)
+- [Vue methods](07_methods/README.md)
+- [Conditional rendering](08_conditional_rendering/README.md)
+- [Attribute bindings and dynamic classes](09_attribute_classes/README.md)
+- [Computed properties](10_computed_properties/README.md)
+- [Extending functionality](11_extending_functionality/README.md)
 
 ---
 
