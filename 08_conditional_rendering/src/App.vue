@@ -34,7 +34,9 @@ export default Vue.extend({
   },
   methods: {
     addTodo(newTodo: string) {
-      this.todos.push(newTodo);
+      if (newTodo.length > 0) {
+        this.todos.push(newTodo);
+      }
     },
   },
 });

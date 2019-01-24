@@ -52,11 +52,13 @@ export default Vue.extend({
   },
   methods: {
     addTodo(newTodo: string) {
-      this.todos.push({
-        id: this.todos.length + 1,
-        text: newTodo,
-        completed: false,
-      });
+      if (newTodo.length > 0) {
+        this.todos.push({
+          id: this.todos.length + 1,
+          text: newTodo,
+          completed: false,
+        });
+      }
     },
     toggleCompleted(todo: ITodo) {
       todo.completed = !todo.completed;

@@ -128,11 +128,13 @@ export interface ITodo {
   },
   methods: {
     addTodo(newTodo: string) {
-      this.todos.push({
+      if (newTodo.length > 0) {
+        this.todos.push({
 +        id: this.todos.length + 1,
-        text: newTodo,
-        completed: false,
-      });
+          text: newTodo,
+          completed: false,
+        });
+      }
     },
   ···
 ```

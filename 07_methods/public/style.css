@@ -16,16 +16,18 @@ body {
 #app {
   background: #fff;
   text-align: center;
-  padding: 2rem;
+  padding: 4rem;
   margin: 1rem;
   border-radius: 3px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.08);
   width: 95%;
-  max-width: 900px;
+  max-width: 800px;
+  min-height: 500px;
 }
 
 h1 {
   color: #3d4852;
+  margin-bottom: 2rem;
 }
 
 ul {
@@ -55,18 +57,19 @@ p {
   font-size: 1.25rem;
   cursor: pointer;
   transition: all 0.1s ease-in;
+  padding-left: 0.5rem;
 }
 
 li:hover {
   color: #22292f;
+  background-color: #f5f5f5;
 }
 
 li input {
   margin: 0 0.5rem 0;
 }
 
-#app > input,
-#app > select {
+#app > input {
   width: 100%;
   border-radius: 3px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
@@ -80,10 +83,14 @@ li input {
 }
 
 .add-todo-form,
-.header {
+.info-todo {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.info-todo {
+  flex-direction: column;
 }
 
 .add-todo-form input {
@@ -128,16 +135,6 @@ li input {
   background: #3490dc;
 }
 
-.btn-cancel {
-  background: #ef5753;
-  color: #fff;
-}
-
-.btn-cancel:hover {
-  background: #e3342f;
-  color: #fff;
-}
-
 .strikeout {
   text-decoration: line-through;
   color: #b8c2cc;
@@ -149,4 +146,32 @@ li input {
 
 .priority {
   color: #de751f;
+}
+
+.filters {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.filters li {
+  display: inline-flex;
+  padding: 1rem;
+}
+
+.filters li {
+	color: inherit;
+	margin: 3px;
+	padding: 3px 7px;
+	text-decoration: none;
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
+
+.filters li:hover {
+	border-color: rgba(175, 47, 47, 0.1);
+}
+
+.filters li.selected {
+	border-color: rgba(175, 47, 47, 0.2);
 }
