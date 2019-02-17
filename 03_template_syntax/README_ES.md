@@ -4,6 +4,8 @@ Vue utiliza una sintaxis de plantilla conocida como **sintaxis de doble bigote**
 
 Para empezar, dentro de las dobles llaves se admite sintaxis de JavaScript:
 
+### [src/App.vue](./src/App.vue)
+
 ```diff
 <template>
   <div id="app">
