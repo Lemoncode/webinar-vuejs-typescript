@@ -16,11 +16,11 @@ vue create todo-app
 
 Nosotros vamos a meternos directamente con lo duro así que crearemos el proyecto seleccionando la configuración para poder agregar TypeScript.
 
-![Pick a preset](../Misc/02_select_preset.png)
+![Pick a preset](../Misc/02_select_preset.PNG)
 
-![Check the features](../Misc/02_check_features.png)
+![Check the features](../Misc/02_check_features.PNG)
 
-![Additional config](../Misc/02_additional_config.png)
+![Additional config](../Misc/02_additional_config.PNG)
 
 Una vez ha finalizado, ya tenemos nuestra app lista para funcionar: `npm run serve`
 
