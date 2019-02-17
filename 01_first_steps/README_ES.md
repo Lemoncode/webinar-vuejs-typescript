@@ -2,7 +2,7 @@
 
 Vamos a comprobar lo fácil que es integrar Vue desde un CDN a nuestro sitio. Seguidamente, veremos cómo es el sistema de reactividad que nos proporciona Vue.
 
-Primero partiremos de una plantilla HTML básica en la que añadiremos Vue desde un CDN.
+Primero, crearemos un `index.html` con una plantilla HTML básica en la que añadiremos la versión de desarrollo de Vue desde un CDN.
 
 ```html
 <!DOCTYPE html>
@@ -13,14 +13,13 @@ Primero partiremos de una plantilla HTML básica en la que añadiremos Vue desde
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </body>
 </html>
 
 ```
 
-Seguidamente, agregaremos un contenedor `div` que será donde conviva nuestra aplicación y añadiremos una etiqueta `h1`.
+Seguidamente, agregaremos un contenedor `div` con un id `app` que será donde conviva nuestra aplicación, y añadiremos una etiqueta `h1`.
 
 ```diff
 <!DOCTYPE html>
@@ -34,7 +33,6 @@ Seguidamente, agregaremos un contenedor `div` que será donde conviva nuestra ap
 +    <div id="app">
 +      <h1>Hello Vue!</h1>
 +    </div>
-    <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   </body>
 </html>
@@ -43,7 +41,7 @@ Seguidamente, agregaremos un contenedor `div` que será donde conviva nuestra ap
 
 Con esto ya tenemos una aplicación Vue funcionando en nuestro sitio.
 
-Para empezar a hacer cosillas, vamos a crear una instancia de Vue. Para ello, agregaremos una etiqueta `script` y le diremos a Vue cierta información que necesita para ejecutarse, como por ejemplo, a qué elemento del DOM debe engancharse. En nuestro caso, será al `div` cuyo id es `app`.
+Para empezar a hacer cosillas, vamos a crear una instancia de Vue. Para ello, agregaremos una etiqueta `script` y le pasaremos a Vue cierta información que necesita para ejecutarse, como por ejemplo, a qué elemento del DOM debe engancharse. En nuestro caso, será al `div` cuyo id es `app`.
 
 ```diff
 <!DOCTYPE html>
@@ -57,7 +55,6 @@ Para empezar a hacer cosillas, vamos a crear una instancia de Vue. Para ello, ag
     <div id="app">
       <h1>Hello Vue!</h1>
     </div>
-    <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 +    <script>
 +      new Vue({
@@ -69,7 +66,7 @@ Para empezar a hacer cosillas, vamos a crear una instancia de Vue. Para ello, ag
 
 ```
 
-Ahora agregaremos datos a nuestra aplicación y eso será tan sencillo como agregar un objeto al data que espera Vue.
+Ahora agregaremos datos a nuestra aplicación y eso será tan sencillo como agregar un objeto al `data` que espera Vue.
 
 ```diff
 <!DOCTYPE html>
@@ -83,7 +80,6 @@ Ahora agregaremos datos a nuestra aplicación y eso será tan sencillo como agre
     <div id="app">
       <h1>Hello Vue!</h1>
     </div>
-    <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
       new Vue({
@@ -98,15 +94,22 @@ Ahora agregaremos datos a nuestra aplicación y eso será tan sencillo como agre
 
 ```
 
-En la propiedad `data` será donde almacenaremos los datos de nuestra instancia de Vue.
+En la propiedad `data` será donde almacenaremos los datos de nuestra instancia de Vue. Vue convierte sus propiedades en getters/setters para hacerlo reactivo. Una vez lo ha hecho, no se pueden agregar propiedades reactivas al objeto de datos raíz. Por lo tanto, es recomendable declarar todas las propiedades reactivas por adelantado, antes de crear la instancia.
 
-Vamos a ver cómo podemos usar nuestros datos en la aplicación. Vue utiliza una sintaxis de plantilla llamada `sintaxis de doble bigote`. Sólo cambiemos el contenido del `h1` por nuestro header y tachán!
+Vamos a ver cómo podemos usar nuestros datos en la aplicación. Vue utiliza una sintaxis de plantilla llamada `sintaxis de doble bigote`. Sólo cambiaremos el contenido del `h1` por nuestro header y tachán!
+
+```diff
+<div id="app">
+-  <h1>Hello Vue!</h1>
++  <h1>{{ header }}</h1>
+</div>
+```
 
 Ya tenemos nuestro header preparado y reactivo para funcionar.
 
 Una de las características más importantes de Vue es su sistema de reactividad. Veamos cómo funciona.
 
-Vamos a crear una caja de texto donde el usuario podrá escribir y lo sincronizaremos con nuestro header. Para ello, haremos uso de la directiva `v-model`.
+Vamos a crear una caja de texto donde el usuario podrá escribir y lo sincronizaremos con nuestro `header`. Para ello, haremos uso de la directiva `v-model`.
 
 ```diff
 <!DOCTYPE html>
@@ -118,10 +121,9 @@ Vamos a crear una caja de texto donde el usuario podrá escribir y lo sincroniza
   </head>
   <body>
     <div id="app">
-      <h1>Hello Vue!</h1>
+      <h1>{{ header }}</h1>
 +      <input type="text" v-model="header" />
     </div>
-    <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
       new Vue({
@@ -138,7 +140,7 @@ Vamos a crear una caja de texto donde el usuario podrá escribir y lo sincroniza
 
 Ahora al teclear vemos cómo se actualiza automáticamente el header de nuestra página. ¡Perfecto!
 
-Pero veamos un poco más sobre la reactividad de Vue. Vamos a asignar la instancia de Vue a una variable para poder cambiar desde consola nuestro header y ver qué ocurre.
+Pero veamos un poco más sobre la reactividad de Vue. Vamos a asignar la instancia de Vue a una variable para poder cambiar desde consola nuestro `header` y ver qué ocurre.
 
 ```diff
 <!DOCTYPE html>
@@ -153,7 +155,6 @@ Pero veamos un poco más sobre la reactividad de Vue. Vamos a asignar la instanc
       <h1>{{ header }}</h1>
       <input type="text" v-model="header" />
     </div>
-    <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
 -      new Vue({
