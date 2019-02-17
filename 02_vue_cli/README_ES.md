@@ -31,6 +31,7 @@ Vamos a eliminar algunas cosas que nos han creado por defecto como el componente
 ```html
 <template>
   <div id="app">
+    <img alt="Lemoncode logo" src="./assets/logo_lemoncode.png">
     <h1>{{ header }}</h1>
     <input type="text" v-model="header">
   </div>
