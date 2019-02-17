@@ -4,28 +4,15 @@ Vue utiliza una sintaxis de plantilla conocida como **sintaxis de doble bigote**
 
 Para empezar, dentro de las dobles llaves se admite sintaxis de JavaScript:
 
-```html
+```diff
 <template>
   <div id="app">
     <img alt="Lemoncode logo" src="./assets/logo_lemoncode.png">
-    <h1>{{ header.toLocaleUpperCase() }}</h1>
+-    <h1>{{ header }}</h1>
++    <h1>{{ header.toLocaleUpperCase() }}</h1>
     <input type="text" v-model="header">
   </div>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-
-export default Vue.extend({
-  name: 'app',
-  data() {
-    return {
-      header: 'ToDo list',
-    };
-  },
-});
-</script>
-
 ```
 
 Podemos utilizar expresiones ternarias, funciones... cualquier sintaxis de una sola línea que pueda ser evaluada de una sola vez:
