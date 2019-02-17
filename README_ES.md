@@ -20,11 +20,13 @@ Repasaremos los conceptos fundamentales y veremos algo de código para darnos un
 
 ---
 
-## Sobre Lemoncode
+## Sobre Basefactor + Lemoncode
 
-We are a team of long-term experienced freelance developers, established as a group in 2010.
-We specialize in Front End technologies and .NET
+Somos un equipo innovador de expertos en JavaScript, apasionados por convertir sus ideas en productos robustos.
 
-[Click here](http://lemoncode.net/services/en/#en-home) to get more info about us.
+[Basefactor, consultancy by Lemoncode](http://www.basefactor.com/) proporciona servicios de consultaría y coaching.
 
-For the LATAM/Spanish audience we are running an Online Front End Master degree, more info: http://lemoncode.net/master-frontend
+[Lemoncode](https://lemoncode.net/services/es#es-home) ofrece servicios de formación.
+
+Para la audiencia de LATAM/España, estamos ejecutando un Máster de Frontend online, más información:
+http://lemoncode.net/master-frontend
