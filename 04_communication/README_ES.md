@@ -1,10 +1,10 @@
 # Comunicación entre componentes
 
-Para mostrar cómo se lleva a cabo la comunicación entre componentes, vamos a empezar a fragmentar el ejemplo en componentes.
+Para mostrar cómo se lleva a cabo la comunicación entre componentes, vamos a empezar a fragmentar nuestro ejemplo.
 
 Primero, crearemos dentro de la carpeta `components` nuestro componente `Header.vue`
 
-**src/components/Header.vue**
+### [src/components/Header.vue](./src/components/Header.vue)
 
 ```html
 <template>
@@ -22,18 +22,24 @@ export default Vue.extend({
 });
 </script>
 
+<style scoped>
+h1 {
+  color: #3d4852;
+  margin-bottom: 2rem;
+}
+</style>
 ```
 
 Y ahora en nuestro archivo `App.vue` vamos a importar el componente y utilizarlo:
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
 <template>
   <div id="app">
 -    <img alt="Lemoncode logo" src="./assets/logo_lemoncode.png">
+-    <h1>{{ header.toLocaleUpperCase() }}</h1>
 +    <header-component />
-    <h1>{{ header.toLocaleUpperCase() }}</h1>
     <input type="text" v-model="header">
   </div>
 </template>
@@ -56,17 +62,48 @@ export default Vue.extend({
 </script>
 ```
 
-> Los componentes los registramos en la sección `components` de Vue. Podemos también agregarlo con otro nombre, simplemente poniendo `'header-custom-component': HeaderComponent,` por ejemplo.
+> Los componentes los registramos en la sección `components` de Vue. Podemos también agregarlo con otro nombre, por ejemplo:
+
+```html
+components: {
+  'header-custom-component': HeaderComponent,
+},
+```
+
+También iremos eliminando los estilos que ya no serán necesarios en `App.vue`:
+
+```diff
+<style>
+···
+- #app > input {
+-   width: 100%;
+-   border-radius: 3px;
+-   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+-   border: 1px solid #f1f5f8;
+-   color: #606f7b;
+-   padding: 0.5rem 0.75rem;
+-   box-sizing: border-box;
+-   font-size: 1rem;
+-   letter-spacing: 0.5px;
+-   margin: 0.5rem 0;
+- }
+-
+- h1 {
+-   color: #3d4852;
+-   margin-bottom: 2rem;
+- }
+</style>
+```
 
 ## Pasando datos mediante props
 
-Ahora necesitamos pasar al nuevo componente el título a mostrar. Para ello, Vue te proporciona la comunicación mediante **props**.
+Ahora necesitamos pasar al nuevo componente el título a mostrar. Para ello, Vue te proporciona la comunicación mediante **props**, respetando el flujo unidireccional de padre a hijo.
 
 Veamos cómo funciona:
 
 Primero, en el componente `Header.vue` vamos a agregar una **props** de tipo `string` que esperará recibir del padre.
 
-**src/components/Header.vue**
+### [src/components/Header.vue](./src/components/Header.vue)
 
 ```diff
 <template>
@@ -90,28 +127,32 @@ export default Vue.extend({
 
 ```
 
-Y en el componente padre `App.vue` le pasamos la *prop* que espera el hijo, mediante el enlazado de atributos. Al final, las props son atributos HTML bindeados.
+Y en el componente padre `App.vue` le pasamos la *prop* que espera el hijo, mediante el enlazado de atributos.
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
 <template>
   <div id="app">
--    <img alt="Lemoncode logo" src="./assets/logo_lemoncode.png">
--    <h1>{{ header.toLocaleUpperCase() }}</h1>
+-    <header-component />
 +    <header-component :header="header.toLocaleUpperCase()" />
     <input type="text" v-model="header">
   </div>
 </template>
 ```
 
-Lo bueno de tipar las **props** es que nos avisa por consola si estamos pasando un tipo que no es compatible.
+Lo bueno de tipar las **props** es que nos avisa por consola si estamos pasando un tipo que no es compatible. Por ejemplo:
 
-Tenemos más opciones sobre las **props**, por ejemplo, podemos decir que la *props* es requerida, como es nuestro caso, así que vamos a modificarlo.
+```diff
+- <header-component :header="header.toLocaleUpperCase()" />
++ <header-component :header="1" />
+```
 
-**src/components/Header.vue**
+Tenemos más opciones sobre las **props**. Podemos decir que la *prop* es requerida, como es nuestro caso, así que vamos a modificarlo.
 
-```html
+### [src/components/Header.vue](./src/components/Header.vue)
+
+```diff
 <template>
   <div>
     <img alt="Lemoncode logo" src="../assets/logo_lemoncode.png">
@@ -125,10 +166,11 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'Header',
   props: {
-    header: {
-      type: String,
-      required: true,
-    },
+-    header: String,
++    header: {
++      type: String,
++      required: true,
++    },
   },
 });
 </script>
@@ -137,33 +179,36 @@ export default Vue.extend({
 
 > Vemos como Vue nos ayuda a desarrollar más rápido ya que nos chiva todos los errores en consola rápidamente.
 
----
+```diff
+- <header-component :header="header.toLocaleUpperCase()" />
++ <header-component />
+```
 
 Sigamos componetizando nuestro ejemplo.
 
 ## Descomponer un v-model
 
-Vamos a extraer nuestro `input` a otro componente para ver cómo interactuamos con él. El nuevo componente se llamará `Form.vue`
+Es importante saber que los datos del padre no se deben editar directamente desde los componentes hijos. El flujo direccional siempre debe ser de arriba hacia abajo. Para evitar esto, no podemos usar directamente la directiva `v-model` desde el componente hijo con la **prop** que recibimos. Sin embargo, vamos a ver cómo podemos utilizar el azúcar sintáctico que nos aporta la directiva `v-model` para poder usarlo:
 
-Es importante saber que los datos del padre no se deben editar directamente desde los componentes hijos. El flujo direccional siempre debe ser de arriba hacia abajo. Para evitar esto, no podemos usar directamente la directiva `v-model` desde el componente hijo con la props que recibimos. Sin embargo, vamos a ver qué realmente la directiva `v-model` no es más que azúcar sintáctico que nos provee Vue.
+<!-- Slide -->
 
-Internamente un `v-model` se descompone en un `value` y un evento `oninput`, así que podemos hacer lo siguiente:
+Internamente un `v-model` se descompone en un `value` y un evento que escucha un `input`, así que vamos a extraer nuestro `input` a otro componente para ver cómo podemos interactuar con él. El nuevo componente se llamará `Form.vue`
 
-- Recibimos `header` como props y la mostramos como el `value` del input.
-- Cuando el usuario teclee algo, emitimos (`$emit`) hacia arriba un evento que deberá estar escuchando el padre.
+- Recibimos el value de `header` como props y lo mostramos como el `value` del input.
+- Cuando el usuario teclee algo, emitimos (`$emit`) hacia arriba un evento `input` que escuchará el padre mediante el v-model.
   - El primer parámetro es el *nombre del evento que deberá estar escuchando el padre* con la directiva `v-on` (shorthand `@`)
   - El segundo parámetro es opcional y *sirve para enviar parámetros* que recibirá el padre.
 
-**src/components/Form.vue**
+### [src/components/Form.vue](./src/components/Form.vue)
 
 ```html
 <template>
   <div class="add-todo-form">
     <input
       type="text"
-      :value="header"
-      @input="$emit('onInput', $event.target.value)"
-    >
+      :value="value"
+      @input="($event) => this.$emit('input', $event.target.value)"
+    />
   </div>
 </template>
 
@@ -173,25 +218,43 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'Form',
   props: {
-    header: {
-      type: String,
-      required: true,
-    },
+    value: String,
   },
 });
 </script>
+
+<style scoped>
+.add-todo-form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.add-todo-form input {
+  width: 70%;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #f1f5f8;
+  color: #606f7b;
+  padding: 0.5rem 0.75rem;
+  box-sizing: border-box;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  margin: 0.5rem 0;
+}
+</style>
 
 ```
 
 Y en el componente padre:
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
 <template>
   <div id="app">
     <header-component :header="header.toLocaleUpperCase()" />
-+    <form-component :header="header" @onInput="header = $event"/>
++    <form-component :header="header" @onInput="header = $event" />
 -    <input type="text" v-model="header">
   </div>
 </template>
@@ -216,6 +279,6 @@ export default Vue.extend({
 </script>
 ```
 
-Más adelante veremos que existen otras formas más eficaces de controlar los eventos emitidos por los hijos mediante el envío de callbacks como props, por ejemplo.
+Más adelante veremos que existen otras formas más eficaces de controlar los eventos emitidos por los hijos mediante el envío de `callbacks` como props, por ejemplo.
 
 [Volver al índice](../README_ES.md/#agenda)
