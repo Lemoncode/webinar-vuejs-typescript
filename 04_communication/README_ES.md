@@ -202,7 +202,7 @@ Y en el componente padre:
 <template>
   <div id="app">
     <header-component :header="header.toLocaleUpperCase()" />
-+    <form-component :header="header" @onInput="header = $event" />
++    <form-component v-model="header" />
 -    <input type="text" v-model="header">
   </div>
 </template>
