@@ -227,6 +227,4 @@ export default Vue.extend({
 </script>
 ```
 
-Más adelante veremos que existen otras formas más eficaces de controlar los eventos emitidos por los hijos mediante el envío de `callbacks` como props, por ejemplo.
-
 [Volver al índice](../README_ES.md/#agenda)
