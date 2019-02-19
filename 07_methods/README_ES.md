@@ -2,15 +2,16 @@
 
 Ejecutar JavaScript directamente en las plantillas o en las directivas no es recomendable. Vamos a ver cómo podemos extraer nuestra funcionalidad a los métodos de Vue.
 
-En nuestro componente `Form.vue` vamos a extraer la función de emitir las nuevas taras hacia el padre:
+En nuestro componente `Form.vue` vamos a extraer la función de emitir las nuevas tareas hacia el padre:
 
-**src/components/Form.vue**
+### [src/components/Form.vue](./src/components/Form.vue)
 
-```html
+```diff
 <template>
   <div class="add-todo-form">
     <input type="text" v-model="newTodo" @keyup.enter="addTodo" placeholder="Task text">
-    <button class="btn btn-primary" @click="addTodo">Add task</button>
+-    <button class="btn btn-primary" @click="$emit('addTodo', newTodo)">Add task</button>
++    <button class="btn btn-primary" @click="addTodo">Add task</button>
   </div>
 </template>
 
@@ -24,17 +25,17 @@ export default Vue.extend({
       newTodo: '',
     };
   },
-  methods: {
-    addTodo() {
-      this.$emit('addTodo', this.newTodo);
-    },
-  },
++  methods: {
++    addTodo(): void {
++      this.$emit('addTodo', this.newTodo);
++    },
++  },
 });
 </script>
 
 ```
 
-Aprovechamos para dejar la caja de texto vacía una vez se ha enviado una nueva tarea:
+Aprovechamos para dejar el input vacío una vez se ha enviado una nueva tarea:
 
 ```diff
 <template>
@@ -69,7 +70,7 @@ Moviendo nuestra lógica desde las plantillas a los métodos de Vue estamos mejo
 
 Vamos a hacer lo mismo en el componente padre:
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
 <template>
