@@ -16,7 +16,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    addTodo() {
+    addTodo(): void {
       this.$emit('addTodo', this.newTodo);
       this.newTodo = '';
     },

@@ -6,6 +6,8 @@ Vue tiene una característica genial que es el enlace de atributos del DOM. Medi
 
 Por ejemplo, vamos a engancharnos al atributo `disabled` de nuestro botón, para que el usuario no pueda agregar elementos sin texto:
 
+### [src/components/Form.vue](./src/components/Form.vue)
+
 ```diff
 <template>
   <div class="add-todo-form">
@@ -32,7 +34,7 @@ Veremos cómo darle un estilo a las tareas que ya han sido completadas. Para ell
 
 Primero creamos una carpeta en el raíz que se llamará `models`. Dentro de esta carpeta crearemos una interfaz `ITodo.ts` para usarla como modelo en nuestros componentes.
 
-**src/models/ITodo.ts**
+### [src/models/ITodo.ts](./src/models/ITodo.ts)
 
 ```ts
 export interface ITodo {
@@ -44,7 +46,7 @@ export interface ITodo {
 
 Ahora en `App.vue` usamos la interfaz:
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
 <template>
@@ -62,7 +64,7 @@ import HeaderComponent from './components/Header.vue';
 import FormComponent from './components/Form.vue';
 import TodoListComponent from './components/TodoList.vue';
 import InfoComponent from './components/Info.vue';
-+ import { ITodo } from "./models/ITodo";
++ import { ITodo } from './models/ITodo';
 
 export default Vue.extend({
   name: 'app',
@@ -136,7 +138,7 @@ export default Vue.extend({
 
 Podemos pasar un objeto para `:class` y alternar de forma dinámica las clases:
 
-**src/components/TodoList.vue**
+### [src/components/TodoList.vue](./src/components/TodoList.vue)
 
 ```diff
   <ul>
@@ -149,6 +151,8 @@ Podemos pasar un objeto para `:class` y alternar de forma dinámica las clases:
 
 La sintaxis de array nos permite más flexibilidad, pero tal vez pueda resultar menos legible:
 
+### [src/components/TodoList.vue](./src/components/TodoList.vue)
+
 ```diff
   <ul>
 -    <li v-for="todo in todos">{{ todo.text }}</li>
@@ -158,7 +162,7 @@ La sintaxis de array nos permite más flexibilidad, pero tal vez pueda resultar 
 
 Pero de esta forma podemos alternar entre distintas clases, no sólo activarlas. Vamos a agregar otra condición para otra propiedad:
 
-**src/models/ITodo.ts**
+### [src/models/ITodo.ts](./src/models/ITodo.ts)
 
 ```diff
 interface ITodo {
@@ -168,7 +172,7 @@ interface ITodo {
 }
 ```
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 _Sustituimos directamente_
 
@@ -195,13 +199,14 @@ _Sustituimos directamente_
 ```diff
   ···
   methods: {
-    addTodo() {
-      this.todos.push({
-        text: this.newTodo,
-        completed: false,
-+        highPriority: false,
-      });
-      this.newTodo = '';
+    addTodo(newTodo: string): void {
+      if (newTodo.length > 0) {
+        this.todos.push({
+          text: newTodo,
+          completed: false,
++          highPriority: false,
+        });
+      }
     },
   },
 });
@@ -210,12 +215,15 @@ _Sustituimos directamente_
 
 Y ahora en el template agregamos la nueva condición:
 
-**src/components/TodoList.vue**
+### [src/components/TodoList.vue](./src/components/TodoList.vue)
 
 ```diff
   <ul>
 -    <li v-for="todo in todos" :class="[todo.completed ? 'strikeout' : '']">{{ todo.text }}</li>
-+    <li v-for="todo in todos" :class="[todo.completed ? 'strikeout' : '', todo.highPriority ? 'priority' : '']">{{ todo.text }}</li>
++    <li
++      v-for="todo in todos"
++      :class="[todo.completed ? 'strikeout' : '', todo.highPriority ? 'priority' : '']"
++    >{{ todo.text }}</li>
   </ul>
 ```
 
@@ -223,14 +231,14 @@ Y ahora en el template agregamos la nueva condición:
 
 Primero, vamos a emitir hacia el padre un evento con la tarea seleccionada cuando el usuario haga clic en ella:
 
-**src/components/TodoList.vue**
+### [src/components/TodoList.vue](./src/components/TodoList.vue)
 
-```html
+```diff
 <template>
   <ul>
     <li
       v-for="todo in todos"
-      @click="$emit('selectTodo', todo)"
++      @click="$emit('selectTodo', todo)"
       :class="[todo.completed ? 'strikeout' : '', todo.highPriority ? 'priority' : '']"
     >{{ todo.text }}</li>
   </ul>
@@ -239,19 +247,30 @@ Primero, vamos a emitir hacia el padre un evento con la tarea seleccionada cuand
 
 Y ahora en el padre, controlaremos el *toggle* entre completada y no completada:
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
+<template>
+  <div id="app">
+    <header-component :header="header.toLocaleUpperCase()" />
+    <form-component @addTodo="addTodo" />
+    <info-component :amount-todo="todos.length" />
+-    <todo-list-component :todos="todos" />
++    <todo-list-component :todos="todos" @selectTodo="toggleCompleted" />
+  </div>
+</template>
+···
   methods: {
-    addTodo() {
-      this.todos.push({
-        text: this.newTodo,
-        completed: false,
-        highPriority: false,
-      });
-      this.newTodo = '';
+    addTodo(newTodo: string): void {
+      if (newTodo.length > 0) {
+        this.todos.push({
+          text: newTodo,
+          completed: false,
+          highPriority: false,
+        });
+      }
     },
-+    toggleCompleted(todo: ITodo) {
++    toggleCompleted(todo: ITodo): void {
 +      todo.completed = !todo.completed;
 +    },
   },
@@ -261,16 +280,17 @@ Con la reactividad de Vue al hacer clic sobre la tarea vemos cómo cambia autom�
 
 Bien, vamos a deshacer algunas cosas para dejarlo listo.
 
-**src/models/ITodo.ts**
+### [src/models/ITodo.ts](./src/models/ITodo.ts)
 
 ```ts
 export interface ITodo {
   text: string;
   completed: boolean;
 }
+
 ```
 
-**src/components/TodoList.vue**
+### [src/components/TodoList.vue](./src/components/TodoList.vue)
 
 ```html
 <template>
@@ -297,9 +317,10 @@ export default Vue.extend({
   },
 });
 </script>
+
 ```
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```html
 <template>
@@ -347,7 +368,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    addTodo(newTodo: string) {
+    addTodo(newTodo: string): void {
       if (newTodo.length > 0) {
         this.todos.push({
           text: newTodo,
@@ -355,7 +376,7 @@ export default Vue.extend({
         });
       }
     },
-    toggleCompleted(todo: ITodo) {
+    toggleCompleted(todo: ITodo): void {
       todo.completed = !todo.completed;
     },
   },
