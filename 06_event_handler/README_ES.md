@@ -2,19 +2,19 @@
 
 Vamos a permitir que el usuario agregue tareas nuevas desde el formulario.
 
-- Primero crearemos en el componente `Form.vue` la propiedad donde se almacena `newTodo`
+- Primero crearemos en el componente `Form.vue` la propiedad donde se almacene `newTodo`
 - Eliminaremos las props que no necesitamos
 - Modificamos el input para que mediante un `v-model` utilice `newTodo`
 - Agregamos un botón que emita un evento `addTodo` hacia el padre con `newTodo` como parámetro enviado
 
-**src/components/Form.vue**
+### [src/components/Form.vue](./src/components/Form.vue)
 
 ```diff
 <template>
   <div class="add-todo-form">
--    <input 
+-    <input
 -      type="text"
--      :value="header" 
+-      :value="header"
 -      @input="$emit('onInput', $event.target.value)"
 -    >
 +    <input type="text" v-model="newTodo" placeholder="Task text">
@@ -43,15 +43,15 @@ export default Vue.extend({
 
 ```
 
-Ahora en el formulario padre, tenemos que quitar las props que le pasábamos y comenzar a escuchar el evento `addTodo` que nos enviará el hijo. Lo que el hijo nos envíe, lo agregaremos directamente a las tareas.
+Ahora en el formulario padre, tenemos que quitar las props que le pasábamos y comenzar a escuchar el evento `addTodo` que nos emitirá el hijo. Lo que el hijo nos envíe, lo agregaremos directamente a las tareas.
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
 <template>
   <div id="app">
     <header-component :header="header.toLocaleUpperCase()"/>
--    <form-component :header="header" @onInput="header = $event"/>
+-    <form-component v-model="header" />
 +    <form-component @addTodo="todos.push($event)"/>
     <todo-list-component :todos="todos"/>
   </div>
@@ -91,6 +91,8 @@ También nos interesaría que cuando el usuario pulsara `enter` después de escr
 
 Vamos a engancharnos al `keyup` del usuario cuando está en nuestro *input*, utilizando el modificador `.enter`. De este modo cuando el usuario presione sólo la tecla *enter* se invocará nuestro código:
 
+### [src/components/Form.vue](./src/components/Form.vue)
+
 ```diff
 <template>
   <div class="add-todo-form">
@@ -99,20 +101,7 @@ Vamos a engancharnos al `keyup` del usuario cuando está en nuestro *input*, uti
     <button class="btn btn-primary" @click="$emit('addTodo', newTodo)">Add task</button>
   </div>
 </template>
-
-<script lang="ts">
-import Vue from 'vue';
-
-export default Vue.extend({
-  name: 'Form',
-  data() {
-    return {
-      newTodo: '',
-    };
-  },
-});
-</script>
-
+···
 ```
 
 ¿Sencillo verdad? Seguimos.

@@ -176,7 +176,7 @@ Internamente un `v-model` se descompone en un `value` y un evento que escucha un
     <input
       type="text"
       :value="value"
-      @input="($event) => this.$emit('input', $event.target.value)"
+      @input="($event) => $emit('input', $event.target.value)"
     />
   </div>
 </template>
