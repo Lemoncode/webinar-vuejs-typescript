@@ -43,7 +43,7 @@ todos: [
 <template>
   <div id="app">
     <header-component :header="header.toLocaleUpperCase()"/>
-    <form-component :header="header" @onInput="header = $event"/>
+    <form-component v-model="header"/>
 +    <todo-list-component :todos="todos"/>
   </div>
 </template>
