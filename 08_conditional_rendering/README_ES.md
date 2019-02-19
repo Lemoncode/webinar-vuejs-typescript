@@ -6,6 +6,8 @@ Imaginemos que queremos decirle al usuario que no tiene tareas pendientes. Con V
 
 Vamos a crear un componente `Info.vue` y gestionaremos el funcionamiento desde aquí:
 
+### [src/components/Info.vue](./src/components/Info.vue)
+
 ```html
 <template>
   <div class="info-todo">
@@ -15,6 +17,7 @@ Vamos a crear un componente `Info.vue` y gestionaremos el funcionamiento desde a
 
 <script lang="ts">
 import Vue from 'vue';
+
 export default Vue.extend({
   name: 'Info',
   props: {
@@ -30,7 +33,7 @@ export default Vue.extend({
 
 Modificaremos el componente padre para pasarle la cantidad de tareas que tenemos:
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
 <template>
@@ -62,7 +65,11 @@ export default Vue.extend({
 
 Probemos eliminado desde la VueDevtools.
 
+Si vemos el comportamiento de Vue al renderizar nuestras plantillas desde el inspector de HTML de nuestro navegador, vemos que directamente no aparece el código HTML. ¡Es fantástico!
+
 Ademas de esta directiva, tenemos **v-else** y **v-else-if**. Veamos cómo funciona:
+
+### [src/components/Info.vue](./src/components/Info.vue)
 
 ```diff
 <template>
@@ -88,9 +95,7 @@ export default Vue.extend({
 
 ```
 
-Si vemos el comportamiento de Vue al renderizar nuestras plantillas desde el inspector de HTML de nuestro navegador, vemos que directamente no aparece el código HTML. ¡Es fantástico!
-
-También tenemos la directiva **v-show**, que tiene un comportamiento similar a **v-if**, sin embargo, sí renderiza nuestro HTML aunque aplica un `display` a `none` al elemento.
+También tenemos la directiva **v-show**, que tiene un comportamiento similar a **v-if**, sin embargo, sí renderiza nuestro HTML aunque aplica un `display:none` al elemento.
 
 ```html
   <h3 v-show="amountTodo === 0">I'm a ghost...</h3>
