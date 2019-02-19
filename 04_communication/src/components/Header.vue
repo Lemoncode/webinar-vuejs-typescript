@@ -18,10 +18,3 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style scoped>
-h1 {
-  color: #3d4852;
-  margin-bottom: 2rem;
-}
-</style>

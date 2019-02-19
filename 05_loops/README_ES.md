@@ -2,9 +2,9 @@
 
 En casi todas las aplicaciones solemos tener colecciones que debemos recorrer o filtrar. Vue nos proporciona la directiva `v-for` para realizar estas acciones de forma eficaz.
 
-En nuestro componente principal `App.vue`, vamos a agregar una colección de tareas a realizar en el `data` y luego, mediante *props* se la pasaremos a un nuevo componente `TodoList.vue` para que renderice la lista de tareas mediante un `v-for`:
+En nuestro componente principal `App.vue`, vamos a agregar en el `data` una colección de tareas a realizar, y luego mediante *props* se la pasaremos a un nuevo componente `TodoList.vue` para que renderice la lista de tareas mediante un `v-for`:
 
-**src/components/TodoList.vue**
+### [src/components/TodoList.vue](./src/components/TodoList.vue)
 
 ```html
 <template>
@@ -15,6 +15,7 @@ En nuestro componente principal `App.vue`, vamos a agregar una colección de tar
 
 <script lang="ts">
 import Vue from 'vue';
+
 export default Vue.extend({
   name: 'TodoList',
   props: {
@@ -28,7 +29,15 @@ export default Vue.extend({
 
 ```
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
+
+<!--
+todos: [
+  'Learn Vue',
+  'Plan next trip',
+  'Go shopping',
+],
+-->
 
 ```diff
 <template>
@@ -64,7 +73,6 @@ export default Vue.extend({
   },
 });
 </script>
-
 
 ```
 

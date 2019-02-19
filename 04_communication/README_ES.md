@@ -22,12 +22,6 @@ export default Vue.extend({
 });
 </script>
 
-<style scoped>
-h1 {
-  color: #3d4852;
-  margin-bottom: 2rem;
-}
-</style>
 ```
 
 Y ahora en nuestro archivo `App.vue` vamos a importar el componente y utilizarlo:
@@ -68,31 +62,6 @@ export default Vue.extend({
 components: {
   'header-custom-component': HeaderComponent,
 },
-```
-
-También iremos eliminando los estilos que ya no serán necesarios en `App.vue`:
-
-```diff
-<style>
-···
-- #app > input {
--   width: 100%;
--   border-radius: 3px;
--   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
--   border: 1px solid #f1f5f8;
--   color: #606f7b;
--   padding: 0.5rem 0.75rem;
--   box-sizing: border-box;
--   font-size: 1rem;
--   letter-spacing: 0.5px;
--   margin: 0.5rem 0;
-- }
--
-- h1 {
--   color: #3d4852;
--   margin-bottom: 2rem;
-- }
-</style>
 ```
 
 ## Pasando datos mediante props
@@ -222,27 +191,6 @@ export default Vue.extend({
   },
 });
 </script>
-
-<style scoped>
-.add-todo-form {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.add-todo-form input {
-  width: 70%;
-  border-radius: 3px;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-  border: 1px solid #f1f5f8;
-  color: #606f7b;
-  padding: 0.5rem 0.75rem;
-  box-sizing: border-box;
-  font-size: 1rem;
-  letter-spacing: 0.5px;
-  margin: 0.5rem 0;
-}
-</style>
 
 ```
 
