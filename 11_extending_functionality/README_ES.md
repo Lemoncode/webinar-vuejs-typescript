@@ -6,7 +6,7 @@ Bien, ya nos queda poco para terminar. Vamos a agregar un par de funcionalidades
 
 Si nos fijamos, no es correcto mostrar al usuario que tenemos 3 tareas pendientes porque tenemos 1 marcada como completada. Vamos a extraer este cálculo a una propiedad computada para hacer uso de ella.
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
 <template>
@@ -21,15 +21,17 @@ Si nos fijamos, no es correcto mostrar al usuario que tenemos 3 tareas pendiente
 
 <script lang="ts">
   ···
+  computed: {
     reverseTodos(): ITodo[] {
       return this.todos.slice(0).reverse();
     },
 +    activeTodos(): number {
 +      return this.todos.filter(todo => !todo.completed).length;
 +    },
+  },  
 ```
 
-**src/components/Info.vue**
+### [src/components/Info.vue](./src/components/Info.vue)
 
 ```diff
 <template>
@@ -44,6 +46,8 @@ Si nos fijamos, no es correcto mostrar al usuario que tenemos 3 tareas pendiente
 Ahora vamos a darle la funcionalidad de filtrar los tipos de tareas, mostrando Todas, Activas y Completadas.
 
 - En nuestro componente `Info.vue`, vamos a crear un sistema de filtrado muy sencillo:
+
+### [src/components/Info.vue](./src/components/Info.vue)
 
 ```diff
 <template>
@@ -84,7 +88,7 @@ export default Vue.extend({
 
 - Necesitamos agregar en `data` una nueva propiedad `visibility` donde diremos qué filtro está activado.
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
   data() {
@@ -98,7 +102,7 @@ export default Vue.extend({
 
 - Un método que establezca el estado de esta propiedad `visibility`.
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
   methods: {
@@ -114,7 +118,7 @@ export default Vue.extend({
 
 - Una propiedad computada que devuelva las tareas filtradas según el estado de `visibility`.
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
   computed: {
@@ -123,9 +127,9 @@ export default Vue.extend({
       return this.todos.filter(todo => !todo.completed).length;
     },
 +    filterTodos(): ITodo[] {
-+      return this.reverseTodos.filter(todo => {
++      return this.reverseTodos.filter((todo: ITodo) => {
 +        if (this.visibility === 'all') return todo;
-+        else if (this.visibility === 'active') return !todo.completed;
++        if (this.visibility === 'active') return !todo.completed;
 +        return todo.completed;
 +      });
 +    },
@@ -134,7 +138,7 @@ export default Vue.extend({
 
 - Y los cambios necesarios en la plantilla.
 
-**src/App**
+### [src/App.vue](./src/App.vue)
 
 *Sustituir directamente*
 
@@ -161,13 +165,13 @@ Y ahora, vamos a crear un filtro para que pluralice la palabra `tareas` si queda
 
 En la sección de `filters` de Vue creamos una función `pluralize` que devolverá un string diciendo *tarea pendiente* o *tareas pendientes*. Parece sencillo, veamos cómo se hace:
 
-**src/components/Info.vue**
+### [src/components/Info.vue](./src/components/Info.vue)
 
 ```diff
   name: 'app',
 +  filters: {
 +    pluralize(count: number) {
-+      return count === 1 ? 'task' : 'tasks'
++      return count === 1 ? 'task' : 'tasks';
 +    },
 +  },
   data() {
@@ -175,7 +179,7 @@ En la sección de `filters` de Vue creamos una función `pluralize` que devolver
 
 Para usarlo, tenemos el `pipe` en la sintaxis de doble bigote.
 
-**src/components/Info.vue**
+### [src/components/Info.vue](./src/components/Info.vue)
 
 ```diff
     <span v-if="amountTodo === 0">Great! You don't have pending tasks</span>
