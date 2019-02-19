@@ -51,7 +51,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    addTodo(newTodo: string) {
+    addTodo(newTodo: string): void {
       if (newTodo.length > 0) {
         this.todos.push({
           id: this.todos.length + 1,
@@ -60,7 +60,7 @@ export default Vue.extend({
         });
       }
     },
-    toggleCompleted(todo: ITodo) {
+    toggleCompleted(todo: ITodo): void {
       todo.completed = !todo.completed;
     },
   },

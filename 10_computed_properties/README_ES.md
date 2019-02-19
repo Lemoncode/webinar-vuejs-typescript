@@ -8,7 +8,7 @@ Las propiedades computadas son muy útiles y deben reemplazar expresiones comple
 
 Por ejemplo, vamos a mostrar el número de caracteres que va tecleando el usuario. Primero creamos el método:
 
-**src/components/Form.vue**
+### [src/components/Form.vue](./src/components/Form.vue)
 
 ```diff
   },
@@ -23,7 +23,7 @@ Por ejemplo, vamos a mostrar el número de caracteres que va tecleando el usuari
 
 Y ahora lo usaremos en nuestro template:
 
-**src/components/Form.vue**
+### [src/components/Form.vue](./src/components/Form.vue)
 
 ```diff
 <template>
@@ -47,16 +47,24 @@ Ahora vamos a ver cómo podemos utilizarlo con otras directivas de Vue. En este 
 
 Primero, creamos el método:
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
- computed: {
-    todoLength(): number {
-      return this.newTodo.length;
-    },
+···
++  computed: {
 +    reverseTodos(): ITodo[] {
 +      return this.todos.slice(0).reverse();
 +    },
++  },
+  methods: {
+    addTodo(newTodo: string): void {
+      if (newTodo.length > 0) {
+        this.todos.push({
+          text: newTodo,
+          completed: false,
+        });
+      }
+    },
 ```
 
 Y ahora en vez de pasarle `todo` como *props* al hijo, le pasaremos `reverseTodos`:
@@ -85,7 +93,7 @@ Veamos cómo se comporta si agregamos una clave única para cada elemento.
 
 - Primero modificamos el modelo:
 
-**src/models/ITodo.ts**
+### [src/models/ITodo.ts](./src/models/ITodo.ts)
 
 ```diff
 export interface ITodo {
@@ -95,7 +103,7 @@ export interface ITodo {
 }
 ```
 
-**src/App.vue**
+### [src/App.vue](./src/App.vue)
 
 ```diff
   ···
@@ -127,7 +135,7 @@ export interface ITodo {
     },
   },
   methods: {
-    addTodo(newTodo: string) {
+    addTodo(newTodo: string): void {
       if (newTodo.length > 0) {
         this.todos.push({
 +        id: this.todos.length + 1,
@@ -139,7 +147,7 @@ export interface ITodo {
   ···
 ```
 
-**src/components/TodoList.vue**
+### [src/components/TodoList.vue](./src/components/TodoList.vue)
 
 ```diff
 <template>
