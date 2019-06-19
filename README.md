@@ -1,5 +1,7 @@
 # Vue.js Webinar
 
+[Traducción al castellano](./README_ES.md)
+
 In this webinar we will show you the what is necessary to start working with this wonderful JavaScript framework.
 
 We will review the fundamental concepts and we will see some code to give us an idea of the power of Vue.
